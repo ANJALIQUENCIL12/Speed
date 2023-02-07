@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Working Details</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+<style>
+div{
+background-color:#01B075;
+font-family:Helvetica;
+font-size:15px;
+color: rgb(247, 250, 252);}
+
+h6 {
+  margin: 16px;
+}
+
+.container {
+  margin-top: 100px;
+  padding: 32px;
+}
+
+.select-box {
+  position: relative;
+  display: flex;
+  width: 400px;
+  flex-direction: column;
+}
+
+.select-box .options-container {
+    
+  background: #2f3640;
+  color: black;
+  max-height: 0;
+  width: 100%;
+  opacity: 0;
+  transition: all 0.4s;
+  border-radius: 8px;
+  overflow: hidden;
+
+  order: 1;
+}
+
+.selected {
+    
+  background: #2f3640;
+  border-radius: 8px;
+  margin-bottom: 8px;
+  color: black;
+  position: relative;
+
+  order: 0;
+}
+
+.selected::after {
+  content: "";
+  background: url("img/arrow-down.svg");
+  background-size: contain;
+  background-repeat: no-repeat;
+
+  position: absolute;
+  height: 100%;
+  width: 32px;
+  right: 10px;
+  top: 5px;
+
+  transition: all 0.4s;
+}
+
+.select-box .options-container.active {
+  max-height: 150px;
+  opacity: 1;
+  overflow-y: scroll;
+  margin-top: 54px;
+}
+
+.select-box .options-container.active + .selected::after {
+  transform: rotateX(180deg);
+  top: -6px;
+}
+
+.select-box .options-container::-webkit-scrollbar {
+  width: 8px;
+  background: #0d141f;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .options-container::-webkit-scrollbar-thumb {
+  background: #525861;
+  border-radius: 0 8px 8px 0;
+}
+
+.select-box .option,
+.selected {
+    background-color: lightgreen;
+  padding: 12px 24px;
+  cursor: pointer;
+}
+
+.select-box .option:hover {
+  background: #414b57;
+}
+
+.select-box label {
+  cursor: pointer;
+}
+
+.select-box .option .radio {
+  display: none;
+}
+
+/* Searchbox */
+
+.search-box input {
+  width: 100%;
+  padding: 6px 6px;
+  font-family: "Roboto", sans-serif;
+  font-size: 16px;
+  position: absolute;
+  border-radius: 8px 8px 0 0;
+  z-index: 100;
+  border: 6px solid #2f3640;
+
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.4s;
+}
+
+.search-box input:focus {
+  outline: none;
+}
+
+.select-box .options-container.active ~ .search-box input {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+
+
+</style>
+  <body style="font-size: 15px;">
+    <!-- form -->
+    <form action="#" onsubmit="return checkBlank()">
+      <div class="main-form" style=" height:1190px; align-content: center; width: 740px; margin-left:auto; margin-right: auto; margin-top: 10px;padding-left: 76px; padding-right: 76px; padding-top: 28px; padding-bottom: 37px; ">
+        <!-- mandy -->
+        <div style="text-align:right; font-size:15px  ;">Mandatory Fields(*)</div>
+        
+        <!-- personal detail -->
+        <div style="font-size:26px ; text-align: left;"><b>PERSONAL DETAILS </b></div>
+         <br>
+        <!-- tabele for form -->
+        <table style="margin-left:auto;margin-right:auto" >
+          <!-- name -->
+          <tr>
+            <td>
+              <label for="fn">First Name*</label><br>
+              <input type="text" id="fn" style="width:280px;margin-right:41px;" required>
+             </td>
+            <td>
+              <label for="ln">Last Name*</label><br>
+              <input type="text" id="ln" style="width:280px;margin-right:41px;" required>
+            </td>
+          </tr>
+
+          <!-- phone no -->
+          <tr>
+            <td>
+              <label for="Pn">Phone No.*</label><br>
+              <input type="tel" id="Pn" style="width:280px;margin-right:41px;" required>
+            </td>
+            <td>
+              <label for="APn">Alternate Phone No.</label><br>
+              <input type="tel" id="APn" style="width:280px;margin-right:41px;">
+            </td>
+          </tr>
+          
+          <!-- email id -->
+          <tr>
+            <td colspan="2">
+              <label for="email">E-Mail Id*</label><br>
+             <input type="email" id="email" style="width:600px ;" required>
+            </td>
+          
+
+          </tr>
+          <tr>
+            <td>
+              <label for="address">Address*</label><br>
+              <textarea name="myText" cols="30" rows="3" required></textarea></td>
+            
+          </tr>
+
+          <tr>
+            <td colspan="2">
+              <label for="resume">Resume*</label>
+              <input type="file" id="file" placeholder="upload from drive" style="width:600px;" required>(.pdf,.txt,.rtf,.docx,.doc files with a 2MB maximum file size are supported)
+            </td>
+           
+          </tr>
+          
+          <tr>
+            <td>
+             <input type="button" value="Upload">
+            </td>
+          </tr>
+        
+      
+          
+</table>
+
+  <!--Education Details-->
+<br>
+<table style="margin-left:auto; margin-right:auto">
+
+
+<!-- Educational detail -->
+<div style="font-size:26px ; height: 35px;"><b>EDUCATIONAL DETAILS</b></div>
+
+
+
+
+          <!-- college name -->
+          <tr style="height:100px;" >
+            <td class="one" colspan="2">
+                <label style="font-size: large; font-weight: bold; display: inline-block;">College Name*</label>
+                
+              
+               <div class="container" style="margin-top: -29px;">
+          
+                <div class="select-box" style="width:600px; margin-left: -29px; margin-bottom: -260px;" >
+                  <div class="options-container">
+                    <div class="option">
+                      <input
+                        type="radio"
+                        class="radio"
+                        id="automobiles"
+                        name="category"
+                      />
+                      <label for="automobiles">Abhilashi University</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="film" name="category" />
+                      <label for="film">Acharya N.G. Ranga Agricultural University</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="science" name="category" />
+                      <label for="science">Acharya Nagarjuna</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="art" name="category" />
+                      <label for="art">Birla Institute of Technology and Science</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="music" name="category" />
+                      <label for="music">Bodoland University</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="travel" name="category" />
+                      <label for="travel">Central University of Haryana</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="sports" name="category" />
+                      <label for="sports">Central Institute of Fisheries Education</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="news" name="category" />
+                      <label for="news">Chaudhary Charan Singh University</label>
+                    </div>
+          
+                    <div class="option">
+                      <input type="radio" class="radio" id="tutorials" name="category" />
+                      <label for="tutorials">Delhi University</label>
+                    </div>
+                  </div>
+          
+                  <div class="selected">
+                    Select College
+                  </div>
+                  <div class="search-box">
+                    <input type="text" placeholder="Start Typing..." />
+                  </div>
+                
+                </div>
+              </div>
+          
+            </td>
+          </tr>
+
+<!-- degree and percent -->
+<tr>
+  
+    <td>
+      <label for="Deg">Degree*</label><br>
+      
+     
+      <select name="Deg" id="Deg" style="width:180px ;margin-right:41px;height: 30px; margin-top: 0px;">
+        <option value="blank"></option>
+        
+        <option value="option1">B.Tech</option>
+        <option value="option1">BCA</option>
+        <option value="option2">BCOM</option>
+        <option value="option3">BA</option>
+        <option value="option4">MCA</option>
+        <option value="option5">B.Sc</option>
+        
+       </select><br>
+       
+       <td>
+        <label for="yer">Year of Completion*</label><br>
+        <input type="date" id="yer" style="width:280px;margin-right:41px;" required>
+      </td>
+
+    </td>
+      <tr>
+        <td>
+      
+     
+      <select name="Addn" id="edtn" style="width:160px ;margin-right:41px;height: 30px; margin-top: 0px;">
+        <option value="blank">Additional Ed. Detail</option>
+        <option value="option1">Diploma</option>
+        <option value="option2">10th</option>
+        <option value="option3">12th</option>
+        <option value="option4">M.Tech</option>
+        <option value="option4">MBA</option>
+        <option value="option4">Others</option>
+    
+        
+       </select>
+        </td>
+      </tr>   
+    
+    <tr>
+      <td>
+        <label for="Per">Percentage*</label><br>
+        <input type="text" id="per" style="width:280px ;margin-right:41px;">
+
+
+      </td>
+      <td>
+        <label for="cg">CGPA</label><br>
+        <input type="text" id="cg" style="width:280px;margin-right:41px;"/>
+      
+      </td>
+    </tr>
+   
+
+  </tr>
+
+</table>
+
+<br>
+<table style="margin-left:auto;margin-right:auto">
+
+
+
+<div style="font-size:26px ;"><b>INTERNSHIP DETAILS</b></div>
+
+<!--Internship Details-->
+
+
+ <!-- Previous working domain -->
+          <tr>
+            <td>
+              <label for="Prwd">Previous Working Domain (if any)</label><br>
+         
+              <input type="text" id="prwd"  style="width:280px ; margin-right:41px;" required>
+
+
+            </td>
+            <td>
+              <label for="Prsn">Previous Stipend</label><br>
+              <input onclick="return checkBlank()" type="text" id="prsn" placeholder="In Thousand" style="width:280px;margin-right:41px;">
+            </td>
+          </tr>
+<!--company name-->
+  <tr>
+            <td colspan="2">
+              <label for="cn">Company Name</label><br>
+             <input onclick="return checkBlank()" type="text" id="cn" style="width:600px" >
+            </td>
+          </tr>
+      <tr>
+            <td>
+              <label for="ks">Key Skills</label><br>
+              
+              <input onclick="return checkBlank()"  type="text" id="ks" style="width:280px ; height:70px;margin-right:41px;">
+              
+
+            </td>
+            <td>
+              <label for="years">Years Of experience</label><br>
+              <input onclick="return checkBlank()" type="number" id="prsn" style="width:280px;margin-right:41px;">
+              <label for="loc">Preffered Job Location</label>
+              
+              <select onclick="return checkBlank()"  name="loc" id="loc" style="width:180px ;margin-right:41px;height: 25px; margin-top: 0px;">
+        <option value="blank"></option>
+        
+        <option value="option1">Delhi-NCR</option>
+        <option value="option1">Jaipur</option>
+
+        <option value="option1">Banglore</option>
+        <option value="option2">Chandigarh</option>
+        <option value="option3">Chennai</option>
+        <option value="option4">Mumbai</option>
+        <option value="option5">Pune</option>
+        
+       </select>
+      
+            </td>
+        
+            <tr>
+              <td>
+                <button style="border: #01B075 1px dotted;">Additional Internship Detail</button>
+              </td>
+            </tr>
+          </tr>
+
+           
+           
+
+
+
+
+
+
+
+
+
+        </table><br>
+        <input type="checkbox" for="confirm" required> I claim all the above information provided by me to be true </input>
+    </div>
+    <input type="submit" class="btn btn-primary" value="Apply" style="margin-left:926px  ; margin-top:12px; font-family:sans-serif;  font-size: 16px; width: 90px;border-radius: 2px ;">
+</form>
+
+
+      
+
+    <!-- script -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-kenU1KFdBIe4zVF0s0G1M5b4hcpxyD9F7jL+jjXkk+Q2h455rYXK/7HAuoJl+0I4" crossorigin="anonymous"></script>
+     <script>
+   const selected = document.querySelector(".selected");
+const optionsContainer = document.querySelector(".options-container");
+const searchBox = document.querySelector(".search-box input");
+
+const optionsList = document.querySelectorAll(".option");
+
+selected.addEventListener("click", () => {
+  optionsContainer.classList.toggle("active");
+
+  searchBox.value = "";
+  filterList("");
+
+  if (optionsContainer.classList.contains("active")) {
+    searchBox.focus();
+  }
+});
+
+optionsList.forEach(o => {
+  o.addEventListener("click", () => {
+    selected.innerHTML = o.querySelector("label").innerHTML;
+    optionsContainer.classList.remove("active");
+  });
+});
+
+searchBox.addEventListener("keyup", function(e) {
+  filterList(e.target.value);
+});
+
+const filterList = searchTerm => {
+  searchTerm = searchTerm.toLowerCase();
+  optionsList.forEach(option => {
+    let label = option.firstElementChild.nextElementSibling.innerText.toLowerCase();
+    if (label.indexOf(searchTerm) != -1) {
+      option.style.display = "block";
+    } else {
+      option.style.display = "none";
+    }
+  });
+};
+
+
+
+function checkBlank(){
+  if(document.getElementById('prwd').value == ""){
+    alert("Previous Working Domain field is required");   
+   return false;
+  }
+}
+
+
+
+     </script>
+
+  </body>
+</html>
